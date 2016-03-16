@@ -1,0 +1,15 @@
+{
+  "name": "nodefx",
+  "version": "1.0.0",
+  "description": "basic nodejs express application framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "framework"
+  ],
+  "author": "david barkhuizen",
+  "license": "ISC"
+}
