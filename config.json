@@ -1,0 +1,6 @@
+{
+	"port" : 8666,
+	"entrypoint" : "bootstrap.js",
+	"static": "client",
+	"css" : "css.css"
+}

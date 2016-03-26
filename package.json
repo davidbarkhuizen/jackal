@@ -1,7 +1,7 @@
 {
   "name": "nodefx",
   "version": "1.0.0",
-  "description": "basic nodejs express application framework",
+  "description": "nodefx",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +11,9 @@
     "framework"
   ],
   "author": "david barkhuizen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongodb": "^2.1.11"
+  }
 }
