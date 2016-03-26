@@ -1,4 +1,31 @@
 body {
-    background-color: black;
-    color:lightgreen;
+    background-color: rgb(64,64,64);
+    color:white;
+
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+.centered {
+	display: table;
+	margin: 0 auto;
+	text-align: center; 
+}
+
+.bubble {
+	width:75%;
+	margin-top:25px; 
+}
+
+.left {
+	text-align:left;
+	float:left;
+	width:50%;
+	margin-left:25%;
+}
+
+.right {
+	text-align:right;
+	float:right;
+	width:50%;
+	margin-right:25%;
 }
