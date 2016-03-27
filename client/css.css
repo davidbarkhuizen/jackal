@@ -9,23 +9,49 @@ body {
 	display: table;
 	margin: 0 auto;
 	text-align: center; 
+	width:100%;
 }
 
 .bubble {
 	width:75%;
-	margin-top:25px; 
+	margin-top:25px;
+	
+	width:40%;
+
+	border:solid;
+	border-radius: 10px;
+	padding: 5px;
+
+	font-size: large;
 }
 
 .left {
+	color:darkgrey;
+
 	text-align:left;
 	float:left;
-	width:50%;
 	margin-left:25%;
 }
 
 .right {
+	color:lightgrey;
+
 	text-align:right;
 	float:right;
-	width:50%;
 	margin-right:25%;
+}
+
+.clear {
+	clear:both;	
+}
+
+.logo {
+	color:black;
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.stdin {
+	background-color: darkgrey;
+	font-size: la
 }

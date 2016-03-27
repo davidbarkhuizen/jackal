@@ -9,7 +9,7 @@ bootstrap_html = "<!DOCTYPE html><html><head><link rel='stylesheet' type='text/c
 	.replace('{{css}}', config.css)
 
 app.get('/', function (req, res) {
-  res.send(bootstrap_html);
+	res.send(bootstrap_html);
 });
 
 app.post('/message', function (req, res) {
@@ -19,5 +19,5 @@ app.post('/message', function (req, res) {
 // ---------------------------------------------------
 
 app.listen(config.port, function () {
-  console.log('nodefx @ http://localhost:' + config.port);
+	console.log('nodefx @ http://localhost:' + config.port);
 });

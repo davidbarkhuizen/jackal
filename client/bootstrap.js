@@ -5,7 +5,7 @@ var doc = {
 
 document.title = doc.title;
 
-function loadBodyHTML(url, focusOnId) {
+function loadBodyHTML(url, focusOnId, next) {
 
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
@@ -21,9 +21,23 @@ function loadBodyHTML(url, focusOnId) {
 	    document.body.innerHTML= this.responseText;
 
 	    document.getElementById(focusOnId).focus();
+	
+	    next();
 	};
 
 	xhr.send();
 }
 
-loadBodyHTML(doc.bodyTemplateURL, 'stdin');
+function loadScript(url) {
+
+	var script = document.createElement('script');
+	script.src = url;
+
+	document.head.appendChild(script);
+}
+
+function bootstrap() {
+	loadScript('app.js');	
+}
+
+loadBodyHTML(doc.bodyTemplateURL, 'stdin', bootstrap);
