@@ -1,7 +1,10 @@
 // ------------------------------e------------------------
 // CONFIG
 
-var MESSAGE_WS_SERVER_URL = 'ws://localhost:8667';
+// assumes co-hosting
+//
+var MESSAGE_WS_SERVER_URL = 'ws://' + document.domain + ':8667';
+
 var KEY_LENGTH = 16;
 
 // ------------------------------------------------------
@@ -116,13 +119,19 @@ stdin.onkeypress = onKeyPress;
 var socket = null;
 function establishConnection(e) {
 
-	channelKey = domChannelKey.value;
-
-	socketKey = randomHexString(KEY_LENGTH);
+	// anti-bounce
+	//
+	if (domConnect.disabled === true) { return; }
+	else { domConnect.disabled = true; }
 
 	domGenRandomChannelKey.disabled = true;
-	domConnect.disabled = true;
+	domGenRandomSecretKey.disabled = true;
+
+	channelKey = domChannelKey.value;
+	socketKey = randomHexString(KEY_LENGTH);
+
 	domChannelKey.disabled = true;
+	domSecretKey.disabled = true;
 
 	socket = io(MESSAGE_WS_SERVER_URL);
 
@@ -163,18 +172,22 @@ domGenRandomChannelKey.onclick = generateRandomChannelKey;
 
 
 function copyChannelKey() {
+
+	var originalState = domChannelKey.disabled; 
 	domChannelKey.disabled = false;
 	domChannelKey.select();
 	document.execCommand('copy');
-	domChannelKey.disabled = true;
+	domChannelKey.disabled = originalState;
 }
 domCopyChannelKey.onclick = copyChannelKey;
 
 function copySecretKey() {
-	//domSecretKey.disabled = false;
+
+	var originalState = domSecretKey.disabled; 
+	domSecretKey.disabled = false;
 	domSecretKey.select();
 	document.execCommand('copy');
-	//domSecretKey.disabled = true;
+	domChannelKey.disabled = originalState;
 }
 domCopySecretKey.onclick = copySecretKey;
 

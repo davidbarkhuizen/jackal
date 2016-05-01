@@ -7,38 +7,44 @@
 	</div>
 
 	<br>
-	<br>
+
+	<table class='panel'>
+		<tr>
+			<td>channel</td>
+			<td><button type='button' id='genRandomChannelKey'>re-generate</button></td>
+			<td><input 
+				id='channelKey' 
+				class='key-input' 
+				placeholder="channel key"/>
+			</td>
+			<td><button type='button' id='copyChannelKey'>copy</button></td>
+		</tr>
+		<tr>
+			<td>secret</td>
+			<td><button type='button' id='genRandomSecretKey'>re-generate</button></td>
+			<td><input
+				id='secretKey' 
+				class='key-input' 
+				placeholder="secret key"/></td>
+			<td><button type='button' id='copySecretKey'>copy</button></td>
+		</tr>
+	</table>
+
+	<br/>
 
 	<div class='centered'>
 		<div>
-			<span>channel key: </span>
-			<input style='width:30%' id='channelKey' class='channelKeyIn' placeholder="channel key"	/>
-			<button type='button' id='genRandomChannelKey'>re-generate</button>
 			<button type='button' id='connect'>connect</button>
-			<button type='button' id='copyChannelKey'>copy</button>
 		</div>
 
 		<br/>
-
-		<div>
-			<span>secret key: </span>
-			<input style='width:50%' id='secretKey' class='secretKeyIn' placeholder="secret key"	/>
-			<button type='button' id='genRandomSecretKey'>re-generate</button>
-			<button type='button' id='copySecretKey'>copy</button>
-		</div>
-
-		<br/>
-	
-
-		<div>
-			<span>channel status: </span>	
-			<span id='status'>disconnected</span>
+		
+		<div>				
+			<span id='status'>status</span>
 		</div>
 	</div>
 
 	<br/>
-
-	<hr style='width:50%'/>
 
 	<div>
 		<input id='stdin' class='centered stdin' style='width:50%;'/>

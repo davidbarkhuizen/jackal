@@ -5,6 +5,12 @@ body {
     font-family: "Lucida Console", Monaco, monospace;
 }
 
+.panel {
+	display: table;
+	margin: 0 auto;
+	text-align: center;
+}
+
 .centered {
 	display: table;
 	margin: 0 auto;
@@ -46,7 +52,7 @@ body {
 }
 
 .logo {
-	color:black;
+	color:lightgray;
 	font-weight: bold;
 	font-size: xx-large;
 }
@@ -58,9 +64,10 @@ body {
 	border-radius: 5px;
 }
 
-.channelKeyIn {
+.key-input {
 	background-color: darkgrey;
 	font-size: large;
-	text-align: center;
+	text-align: left;
 	border-radius: 5px;
+	width: 500px;
 }
