@@ -1,15 +1,36 @@
+david barkhuizen @ 2016  
 # jackal
-end-to-end message encryption  
-powered by the Stanford Javascript Crypto Library @ https://github.com/bitwiseshiftleft/sjcl
+persistence free end-to-end message encryption in the browser  
+powered by the Stanford Javascript Crypto Library @ https://github.com/bitwiseshiftleft/sjcl 
 
-# operations
+## servers
 
-## run configuration
-
-servers
-* gatesrv.js
+* pagesrv.js
   * http
-  * page & authentication gate server
+  * page server
+
 * msgsrv.js
-  * websocket
   * message server
+  * websocket-based
+  * manages channels
+  * accepts incoming websocket connections
+  * distributes messages to channel members
+
+## operations
+
+### config
+
+#### pagesrv.config.json
+
+	{
+		"port" : 8666,
+		"entrypoint" : "bootstrap.js",
+		"static": "client",
+		"css" : "css.css"
+	}
+
+#### msgsrv.config.json
+
+	{
+		"port" : 8667
+	}

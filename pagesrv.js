@@ -1,8 +1,8 @@
 console.log('------------');
-console.log('jackal GATE');
+console.log('jackal PAGE');
 console.log('------------');
 
-var config = require('./gatesrv.config.json');
+var config = require('./pagesrv.config.json');
 
 var express = require('express');
 var app = express();

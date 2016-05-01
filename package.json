@@ -1,17 +1,18 @@
 {
-  "name": "nodefx",
+  "name": "jackal",
   "version": "1.0.0",
-  "description": "nodefx",
-  "main": "gatesrv.js",
+  "description": "jackal crypto chat",
+  "main": "jackal.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "express",
-    "framework"
+    "chat",
+    "crypto",
+    "sjcl"
   ],
   "author": "david barkhuizen",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.7.1",
     "express": "^4.13.4",
