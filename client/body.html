@@ -1,5 +1,7 @@
 <div class='centered'>
 
+	<br>
+
 	<div>
 		<div class='logo'>tachyon</div>
 	</div>
@@ -8,26 +10,33 @@
 	<br>
 
 	<div class='centered'>
-		<span>random channel key:</span>
-		<span id='randomChannelKey'></span>
-		<button type='button' id='genRandomChannelKey'>generate</button>
-		<button type='button' id='useRandomChannelKey'>use</button>
+		<div>
+			<span>channel key: </span>
+			<input style='width:30%' id='channelKey' class='channelKeyIn' placeholder="channel key"	/>
+			<button type='button' id='genRandomChannelKey'>re-generate</button>
+			<button type='button' id='connect'>connect</button>
+			<button type='button' id='copyChannelKey'>copy</button>
+		</div>
+
+		<br/>
+
+		<div>
+			<span>secret key: </span>
+			<input style='width:50%' id='secretKey' class='secretKeyIn' placeholder="secret key"	/>
+			<button type='button' id='genRandomSecretKey'>re-generate</button>
+			<button type='button' id='copySecretKey'>copy</button>
+		</div>
+
+		<br/>
+	
+
+		<div>
+			<span>channel status: </span>	
+			<span id='status'>disconnected</span>
+		</div>
 	</div>
 
 	<br/>
-
-	<div class='centered'>
-		<input style='width:30%' id='channelKey' class='channelKeyIn' placeholder="channel key" />
-		<button type='button' id='connect'>connect</button>
-	</div>
-
-	<br/>
-
-	<hr style='width:50%'/>
-
-	<div class='centered'>	
-		<span id='status'>status</span>
-	</div>
 
 	<hr style='width:50%'/>
 

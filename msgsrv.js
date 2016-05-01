@@ -44,7 +44,7 @@ io.on('connection', function(socket){
 
 				if (channels[c].sockets[s].key === socketKey) {
 					channels[c].sockets.splice(s, 1);
-					console.log('removed from channel: ' + channels[c].key);
+					console.log('removed from channel ' + channels[c].key);
 					continue;
 				}
 			}
@@ -59,12 +59,26 @@ io.on('connection', function(socket){
 			}			
 		}
 	});
+
+	socket.on('MESSAGE', function(message){
+	
+		var dto = JSON.parse(message);
+		console.log(JSON.stringify(dto));
+
+		for(var i = 0; i < channels.length; i++) {
+			for(var j = 0; j < channels[i].sockets.length; j++) {
+				if (channels[i].sockets[j].key !== socketKey) {
+					channels[i].sockets[j].socket.emit('MESSAGE', message);
+				}
+			}
+		}
+	});
 	
 	socket.on('AUTH', function(data){
 
 		function describeChannel(channel) {
-			return channel.key + '(' + channel.sockets.length.toString() + ')';
-		}
+			return channel.key + ' (' + channel.sockets.length.toString() + ' endpoint[s])';
+		} 
 
 		data = JSON.parse(data);
 
@@ -86,7 +100,7 @@ io.on('connection', function(socket){
 				socketKey = data.socketKey;
 
 				channel.sockets.push(newSocket(data.socketKey, socket));
-				socket.emit('AUTH', 'joining channel: ' + describeChannel(channel));
+				socket.emit('AUTH', 'joining channel ' + describeChannel(channel));
 				
 				for(var j = 0; j < channel.sockets.length; j++) {
 					if (channel.sockets[j].key !== socketKey) {
@@ -103,7 +117,7 @@ io.on('connection', function(socket){
 
 		var channel = newChannel(channelKey, newSocket(socketKey, socket)); 
 		channels.push(channel);
-		socket.emit('AUTH', 'creating channel: ' + describeChannel(channel));
+		socket.emit('AUTH', 'creating channel ' + describeChannel(channel));
 	});
 });
 

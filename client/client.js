@@ -1,4 +1,4 @@
-// ------------------------------------------------------
+// ------------------------------e------------------------
 // CONFIG
 
 var MESSAGE_WS_SERVER_URL = 'ws://localhost:8667';
@@ -10,7 +10,8 @@ var KEY_LENGTH = 16;
 var 
 	channelKey = null, 
 	randomChannelKeyHexString = null,
-	socketKey = null;
+	socketKey = null,
+	secretKey = null;
 
 // ------------------------------------------------------
 
@@ -22,12 +23,13 @@ var domConnect = document.getElementById('connect');
 var domStatus = document.getElementById('status');
 
 var domChannelKey = document.getElementById('channelKey'); 
+var domSecretKey = document.getElementById('secretKey'); 
 
 var domGenRandomChannelKey = document.getElementById('genRandomChannelKey');
-var domUseRandomChannelKey = document.getElementById('useRandomChannelKey');
-domUseRandomChannelKey.disabled = true;
+var domGenRandomSecretKey = document.getElementById('genRandomSecretKey');
 
-var domRandomChannelKey = document.getElementById('randomChannelKey');
+var domCopyChannelKey = document.getElementById('copyChannelKey');
+var domCopySecretKey = document.getElementById('copySecretKey');
 
 function setStatus(text) {
 	text = text.trim().toLowerCase();
@@ -36,24 +38,16 @@ function setStatus(text) {
 
 function setRandomChannelKey(delimitedHexString) {
 
-	randomChannelKeyHexString = delimitedHexString; 
-
-	domRandomChannelKey.textContent = delimitedHexString; 
-	domUseRandomChannelKey.disabled = false;
+	channelKey = delimitedHexString;
+	domChannelKey.value = delimitedHexString;
 }
 
-function useRandomChannelKey() {
-	
-	if (domUseRandomChannelKey.disabled == true) {
-		return;
-	}
+function setRandomSecretKey(delimitedHexString) {
 
-	channelKey = randomChannelKeyHexString; 
-
-	domUseRandomChannelKey.disabled = true;
-	domChannelKey.value = randomChannelKeyHexString;
+	secretKey = delimitedHexString;
+	domSecretKey.value = delimitedHexString;
 }
-domUseRandomChannelKey.onclick = useRandomChannelKey;
+
 
 // ------------------------------------------------------
 
@@ -79,13 +73,23 @@ function addBubble(text, className) {
 	}
 }
 
-var i = 0;
 function onTextSubmission(text) {
 
-	i = i + 1;
-	addBubble(text, ['left', 'right'][i % 2])
+	addBubble(text, 'left');
 
 	stdin.value = null;
+
+	var hexKey = domSecretKey.value.trim().replace(/:/g, '');
+	var key = sjcl.codec.hex.toBits(hexKey);
+
+	var cipherEnvelope = sjcl.encrypt(key, text, {mode : "gcm"});
+
+	/*	
+	var clearText = sjcl.decrypt(key, cipherText, {mode : "gcm"});
+	console.log('clearText: ' + clearText);
+	*/
+
+	socket.emit("MESSAGE", cipherEnvelope);
 }
 
 function onKeyPress(e) {
@@ -118,7 +122,6 @@ function establishConnection(e) {
 
 	domGenRandomChannelKey.disabled = true;
 	domConnect.disabled = true;
-	domUseRandomChannelKey.disabled = true;
 	domChannelKey.disabled = true;
 
 	socket = io(MESSAGE_WS_SERVER_URL);
@@ -131,8 +134,18 @@ function establishConnection(e) {
 	socket.emit('AUTH', JSON.stringify(auth));
 
 	socket.on('AUTH', function(dto){ 
-		console.log(dto);
 		setStatus(dto); 
+	});
+
+	socket.on('MESSAGE', function(cipherEnvelope){ 
+
+		var hexKey = domSecretKey.value.trim().replace(/:/g, '');
+		var key = sjcl.codec.hex.toBits(hexKey);
+
+		var clearText = sjcl.decrypt(key, cipherEnvelope, {mode : "gcm"});
+		console.log('clearText: ' + clearText);
+
+		addBubble(clearText, 'right');
 	});
 }
 domConnect.onclick = establishConnection;
@@ -146,6 +159,37 @@ function generateRandomChannelKey() {
 	var hexString = randomHexString(KEY_LENGTH);
 	setRandomChannelKey(hexString);
 }
-
 domGenRandomChannelKey.onclick = generateRandomChannelKey;
+
+
+function copyChannelKey() {
+	domChannelKey.disabled = false;
+	domChannelKey.select();
+	document.execCommand('copy');
+	domChannelKey.disabled = true;
+}
+domCopyChannelKey.onclick = copyChannelKey;
+
+function copySecretKey() {
+	//domSecretKey.disabled = false;
+	domSecretKey.select();
+	document.execCommand('copy');
+	//domSecretKey.disabled = true;
+}
+domCopySecretKey.onclick = copySecretKey;
+
+function generateRandomSecretKey() {
+
+	if (domGenRandomSecretKey.disabled === true) {
+		return;
+	}
+
+	var hexString = randomHexString(256 / 8);
+	setRandomSecretKey(hexString);
+}
+domGenRandomSecretKey.onclick = generateRandomSecretKey;
+
+// INIT
+//
 generateRandomChannelKey();
+generateRandomSecretKey();

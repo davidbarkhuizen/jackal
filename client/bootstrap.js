@@ -2,7 +2,7 @@ var doc = {
 	title: "tachyon",
 	bodyTemplateURL: "body.html",
 	entryPoint: "client.js",
-	scripts : ["socket.io.js", "cliutil.js"]
+	scripts : ["socket.io.js", "cliutil.js", "sjcl.js"]
 };
 
 document.title = doc.title;
