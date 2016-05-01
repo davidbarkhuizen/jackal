@@ -1,5 +1,5 @@
 var doc = {
-	title: "tachyon",
+	title: "jackal",
 	bodyTemplateURL: "body.html",
 	entryPoint: "client.js",
 	scripts : ["socket.io.js", "cliutil.js", "sjcl.js"]

@@ -1,5 +1,5 @@
 console.log('------------');
-console.log('tachyon GATE');
+console.log('jackal GATE');
 console.log('------------');
 
 var config = require('./gatesrv.config.json');

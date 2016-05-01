@@ -1,5 +1,5 @@
 console.log('---------------');
-console.log('tachyon MESSAGE');
+console.log('jackal MESSAGE');
 console.log('---------------');
 
 var config = require('./msgsrv.config.json');
