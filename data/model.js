@@ -21,3 +21,13 @@ function message(from, to, text) {
 		text: text
 	};
 }
+
+User = {
+	sessionKey : string,
+	
+}
+
+Channel = {
+	"channelKey" : string,
+	users : []
+}

@@ -1,6 +1,9 @@
-console.log('tachyon gate server');
+console.log('------------');
+console.log('tachyon GATE');
+console.log('------------');
 
 var config = require('./gatesrv.config.json');
+
 var express = require('express');
 var app = express();
 

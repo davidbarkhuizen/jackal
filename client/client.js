@@ -2,7 +2,15 @@
 // CONFIG
 
 var MESSAGE_WS_SERVER_URL = 'ws://localhost:8667';
-var CHANNEL_KEY_LENGTH = 16;
+var KEY_LENGTH = 16;
+
+// ------------------------------------------------------
+// DATA MODEL
+
+var 
+	channelKey = null, 
+	randomChannelKeyHexString = null,
+	socketKey = null;
 
 // ------------------------------------------------------
 
@@ -10,29 +18,42 @@ var CHANNEL_KEY_LENGTH = 16;
 //
 var stdin = document.getElementById('stdin');
 var stdout = document.getElementById('stdout');
-var connect = document.getElementById('connect');
+var domConnect = document.getElementById('connect');
+var domStatus = document.getElementById('status');
 
-var domChannelKey = document.getElementById('channelkeyin'); 
+var domChannelKey = document.getElementById('channelKey'); 
 
 var domGenRandomChannelKey = document.getElementById('genRandomChannelKey');
-var domCopyRandomChannelKey = document.getElementById('copyRandomChannelKey');
-domCopyRandomChannelKey.disabled = true;
+var domUseRandomChannelKey = document.getElementById('useRandomChannelKey');
+domUseRandomChannelKey.disabled = true;
 
-var randomChannelKey = null;
 var domRandomChannelKey = document.getElementById('randomChannelKey');
 
-function setRandomChannelKey(stringVal) {
-
-	randomChannelKey = stringVal; 
-	domRandomChannelKey.textContent = stringVal; 
-
-	domCopyRandomChannelKey.disabled = false;
+function setStatus(text) {
+	text = text.trim().toLowerCase();
+	domStatus.textContent = text;
 }
 
-function copyRandomChannelKey() {
-	domChannelKey.value = randomChannelKey;
+function setRandomChannelKey(delimitedHexString) {
+
+	randomChannelKeyHexString = delimitedHexString; 
+
+	domRandomChannelKey.textContent = delimitedHexString; 
+	domUseRandomChannelKey.disabled = false;
 }
-domCopyRandomChannelKey.onclick = copyRandomChannelKey;
+
+function useRandomChannelKey() {
+	
+	if (domUseRandomChannelKey.disabled == true) {
+		return;
+	}
+
+	channelKey = randomChannelKeyHexString; 
+
+	domUseRandomChannelKey.disabled = true;
+	domChannelKey.value = randomChannelKeyHexString;
+}
+domUseRandomChannelKey.onclick = useRandomChannelKey;
 
 // ------------------------------------------------------
 
@@ -88,37 +109,43 @@ function onKeyPress(e) {
 }
 stdin.onkeypress = onKeyPress;
 
-var messageSocket = null;
+var socket = null;
 function establishConnection(e) {
 
-	connect.disabled = true;
-	var socket = io(MESSAGE_WS_SERVER_URL);
+	channelKey = domChannelKey.value;
 
-	var auth_msg = {
-		one_time_channel_key : 'dogs bollocks'
+	socketKey = randomHexString(KEY_LENGTH);
+
+	domGenRandomChannelKey.disabled = true;
+	domConnect.disabled = true;
+	domUseRandomChannelKey.disabled = true;
+	domChannelKey.disabled = true;
+
+	socket = io(MESSAGE_WS_SERVER_URL);
+
+	var auth = { 
+		channelKey : channelKey,
+		socketKey : socketKey
 	};
+	
+	socket.emit('AUTH', JSON.stringify(auth));
 
-	socket.emit('AUTH', JSON.stringify(auth_msg));
+	socket.on('AUTH', function(dto){ 
+		console.log(dto);
+		setStatus(dto); 
+	});
 }
-connect.onclick = establishConnection;
-
+domConnect.onclick = establishConnection;
 
 function generateRandomChannelKey() {
 
-	var hexString = randomHexString(CHANNEL_KEY_LENGTH);
+	if (domGenRandomChannelKey.disabled === true) {
+		return;
+	}
 
+	var hexString = randomHexString(KEY_LENGTH);
 	setRandomChannelKey(hexString);
 }
 
 domGenRandomChannelKey.onclick = generateRandomChannelKey;
 generateRandomChannelKey();
-
-// FLOW
-//
-// new message text submitted
-// send text to server
-// -- on error, indicate, retain text
-// -- on success, indicate success of delivery => move to bubble
-// 
-// new message received
-// 
