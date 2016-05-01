@@ -1,4 +1,6 @@
 # jackal
+end-to-end message encryption  
+powered by the Stanford Javascript Crypto Library @ https://github.com/bitwiseshiftleft/sjcl
 
 # operations
 
@@ -11,7 +13,3 @@ servers
 * msgsrv.js
   * websocket
   * message server
-
-TO RUN THE MONGODB SERVER
-
-mongod --dbpath ~/data/mongodb/ --port 8667
