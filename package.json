@@ -2,7 +2,7 @@
   "name": "nodefx",
   "version": "1.0.0",
   "description": "nodefx",
-  "main": "index.js",
+  "main": "gatesrv.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +13,9 @@
   "author": "david barkhuizen",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.7.1",
     "express": "^4.13.4",
-    "mongodb": "^2.1.11"
+    "mongodb": "^2.1.11",
+    "socket.io": "^1.4.5"
   }
 }

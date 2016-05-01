@@ -53,5 +53,14 @@ body {
 
 .stdin {
 	background-color: darkgrey;
-	font-size: la
+	font-size: large;
+
+	border-radius: 5px;
+}
+
+.channelkeyin {
+	background-color: darkgrey;
+	font-size: large;
+	text-align: center;
+	border-radius: 5px;
 }

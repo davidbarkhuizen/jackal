@@ -1,11 +1,26 @@
 <div class='centered'>
 
+	<div>
+		<div class='logo'>tachyon</div>
+	</div>
+
+	<br>
+	<br>
+
+	<div class='centered'>
+		<span>random channel key:</span>
+		<span id='randomChannelKey'></span>
+		<button type='button' id='genRandomChannelKey'>generate</button>
+		<button type='button' id='copyRandomChannelKey'>copy</button>
+	</div>
+
+	<hr style='width:50%'/>
+
 	<br/>
 
-	<div>
-		<div class='logo'>black chat</div>
-		<br/>
-		<img src="speech-bubble.ico"/>
+	<div class='centered'>
+		<input style='width:30%' id='channelkeyin' class='channelkeyin' placeholder="channel key" />
+		<button type='button' id='connect'>connect</button>
 	</div>
 
 	<br/>
@@ -15,5 +30,9 @@
 	</div>
 </div>
 
-<div id='stdout' class='centered'>	
+<div id='stdout' class='centered' style='display: block;height: 400px;overflow-y: scroll;'>	
+</div>
+
+<div class='centered' style='color:black'>
+	tachyon | 2016 | david barkhuizen
 </div>

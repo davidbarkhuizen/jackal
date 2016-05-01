@@ -6,10 +6,10 @@ function guid() {
 	});
 }
 
-function user(name, id) {
+function user(userName, userID) {
 
 	return {
-		id: id,
+		userID: userID,
 		name: name
 	};
 }

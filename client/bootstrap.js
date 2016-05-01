@@ -1,6 +1,8 @@
 var doc = {
-	title: "netnode",
+	title: "tachyon",
 	bodyTemplateURL: "body.html",
+	entryPoint: "client.js",
+	scripts : ["socket.io.js", "cliutil.js"]
 };
 
 document.title = doc.title;
@@ -36,8 +38,16 @@ function loadScript(url) {
 	document.head.appendChild(script);
 }
 
+function loadScripts(urls) {
+
+	for(var i = 0; i < urls.length; i++) {
+		loadScript(urls[i]);
+	}
+}
+
 function bootstrap() {
-	loadScript('app.js');	
+	loadScript(doc.entryPoint);	
 }
 
 loadBodyHTML(doc.bodyTemplateURL, 'stdin', bootstrap);
+loadScripts(doc.scripts);
