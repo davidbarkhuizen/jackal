@@ -1,7 +1,12 @@
 david barkhuizen @ 2016  
 # jackal
 persistence free end-to-end message encryption in the browser  
-powered by the Stanford Javascript Crypto Library @ https://github.com/bitwiseshiftleft/sjcl 
+
+powered by 
+* nodejs @ https://nodejs.org/en
+* expressjs @ http://expressjs.com
+* socket.io
+* the Stanford Javascript Crypto Library @ https://github.com/bitwiseshiftleft/sjcl 
 
 ## servers
 
