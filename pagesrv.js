@@ -9,9 +9,10 @@ var app = express();
 
 app.use(express.static(config.static));
 
-bootstrap_html = "<!DOCTYPE html><html><head><link rel='stylesheet' type='text/css' href='{{css}}'></head><body></body><script src='{{entrypoint}}'></script></html>"
+bootstrap_html = "<!DOCTYPE html><html><head><link rel='stylesheet' type='text/css' href='{{css}}'><link rel='shortcut icon' type='image/x-icon' href='{{favicon}}' /></head><body></body><script src='{{entrypoint}}'></script></html>"
 	.replace('{{entrypoint}}', config.entrypoint)
 	.replace('{{css}}', config.css)
+	.replace('{{favicon}}', config.favicon);
 
 app.get('/*', function (req, res) {
 	res.send(bootstrap_html);

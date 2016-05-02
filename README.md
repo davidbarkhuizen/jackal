@@ -7,16 +7,19 @@ powered by
 * nodejs (https://nodejs.org/en/)
 * expressjs (http://expressjs.com/)
 * socket.io (http://socket.io/)
- 
+
+## basic model
+
+
 ## servers
 
 * pagesrv.js
   * http
   * page server
+  * any get request will server up the UI
 
 * msgsrv.js
-  * message server
-  * websocket-based
+  * websocket message server
   * manages channels
   * accepts incoming websocket connections
   * distributes messages to channel members

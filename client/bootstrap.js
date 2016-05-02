@@ -2,7 +2,7 @@ var doc = {
 	title: "jackal",
 	bodyTemplateURL: "body.html",
 	entryPoint: "client.js",
-	scripts : ["socket.io.js", "cliutil.js", "sjcl.js"]
+	scripts : ["socket.io.js", "cliutil.js", "sjcl.js"],
 };
 
 document.title = doc.title;
