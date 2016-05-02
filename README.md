@@ -1,5 +1,5 @@
-david barkhuizen @ 2016  
 # jackal
+david barkhuizen @ 2016  
 persistence free end-to-end message encryption in the browser  
 
 powered by 
