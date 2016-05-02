@@ -28,12 +28,11 @@ io.on('connection', function(socket){
 
 	var channelKey, socketKey;
 
-	var addr = socket.request.connection.remoteAddress;
-	console.log('a user connected from ' + addr);
+	console.log('new websocket connection established');
 
 	socket.on('disconnect', function(){
 		
-		console.log('user disconnected');
+		console.log('websocket connection abandoned');
 
 		var channelsVacated = [];
 
@@ -44,7 +43,6 @@ io.on('connection', function(socket){
 
 				if (channels[c].sockets[s].key === socketKey) {
 					channels[c].sockets.splice(s, 1);
-					console.log('removed from channel ' + channels[c].key);
 					continue;
 				}
 			}
@@ -62,9 +60,6 @@ io.on('connection', function(socket){
 
 	socket.on('MESSAGE', function(message){
 	
-		var dto = JSON.parse(message);
-		console.log(JSON.stringify(dto));
-
 		for(var i = 0; i < channels.length; i++) {
 			for(var j = 0; j < channels[i].sockets.length; j++) {
 				if (channels[i].sockets[j].key !== socketKey) {
@@ -81,8 +76,6 @@ io.on('connection', function(socket){
 		} 
 
 		data = JSON.parse(data);
-
-		console.log('AUTH RQ: ' + data);
 
 		for(var i = 0; i < channels.length; i++) {
 			if (channels[i].key === data.channelKey) {

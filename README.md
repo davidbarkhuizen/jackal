@@ -1,13 +1,13 @@
 # jackal
 david barkhuizen @ 2016  
-persistence free end-to-end message encryption in the browser  
+persistence-free end-to-end encrypted browser-to-browser messaging with 1 time pads  
+using the Stanford Javascript Crypto Library @ https://github.com/bitwiseshiftleft/sjcl 
 
 powered by 
-* nodejs @ https://nodejs.org/en
-* expressjs @ http://expressjs.com
-* socket.io
-* the Stanford Javascript Crypto Library @ https://github.com/bitwiseshiftleft/sjcl 
-
+* nodejs (https://nodejs.org/en/)
+* expressjs (http://expressjs.com/)
+* socket.io (http://socket.io/)
+ 
 ## servers
 
 * pagesrv.js
