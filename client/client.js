@@ -78,6 +78,8 @@ function addBubble(text, className) {
 
 function onTextSubmission(text) {
 
+	var nick = document.getElementById('nick').value;
+
 	addBubble(text, 'left');
 
 	stdin.value = null;
@@ -85,14 +87,17 @@ function onTextSubmission(text) {
 	var hexKey = domSecretKey.value.trim().replace(/:/g, '');
 	var key = sjcl.codec.hex.toBits(hexKey);
 
-	var cipherEnvelope = sjcl.encrypt(key, text, {mode : "gcm"});
+	var dto = {
+		crypto: sjcl.encrypt(key, text, {mode : "gcm"}),
+		source: nick
+	};
 
 	/*	
 	var clearText = sjcl.decrypt(key, cipherText, {mode : "gcm"});
 	console.log('clearText: ' + clearText);
 	*/
 
-	socket.emit("MESSAGE", cipherEnvelope);
+	socket.emit("MESSAGE", dto);
 }
 
 function onKeyPress(e) {
@@ -146,15 +151,17 @@ function establishConnection(e) {
 		setStatus(dto); 
 	});
 
-	socket.on('MESSAGE', function(cipherEnvelope){ 
+	socket.on('MESSAGE', function(dto){ 
 
 		var hexKey = domSecretKey.value.trim().replace(/:/g, '');
 		var key = sjcl.codec.hex.toBits(hexKey);
 
-		var clearText = sjcl.decrypt(key, cipherEnvelope, {mode : "gcm"});
+		var clearText = sjcl.decrypt(key, dto.crypto, {mode : "gcm"});
 		console.log('clearText: ' + clearText);
 
-		addBubble(clearText, 'right');
+		var text = dto.source + ': ' + clearText; 
+
+		addBubble(text, 'right');
 	});
 }
 domConnect.onclick = establishConnection;
@@ -169,7 +176,6 @@ function generateRandomChannelKey() {
 	setRandomChannelKey(hexString);
 }
 domGenRandomChannelKey.onclick = generateRandomChannelKey;
-
 
 function copyChannelKey() {
 
